@@ -59,3 +59,4 @@ class ClientParking(db.Model):
             'time_out': self.time_out.strftime('%Y-%m-%d %H:%M:%S') if self.time_out else None,
             'parking_address': self.parking.address if self.parking else None
         }
+
