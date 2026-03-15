@@ -1,0 +1,34 @@
+name: Python CI/CD
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Unittest
+        run: pytest tests/
+      - name: MyPy
+        run: mypy src/
+      - name: Black
+        run: black --diff --check src/
+      - name: Isort
+        run: isort --check-only src/
+      - name: Flake8
+        run: flake8 src/
