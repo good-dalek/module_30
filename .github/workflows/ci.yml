@@ -25,7 +25,7 @@ jobs:
       - name: Unittest
         run: pytest tests/
       - name: MyPy
-        run: mypy main/ --config-file pyproject.toml
+        run: mypy main/
       - name: Black
         run: black --diff --check src/
       - name: Isort
