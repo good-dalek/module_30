@@ -2,8 +2,8 @@ from .app import db
 from sqlalchemy import ForeignKey
 
 
-class Client(db.Model):
-    __tablename__ = 'client'
+class Client(db.Model): # type: ignore[name-defined]
+	__tablename__ = 'client'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -19,8 +19,8 @@ class Client(db.Model):
                 for c in self.__table__.columns}
 
 
-class Parking(db.Model):
-    __tablename__ = 'parking'
+class Parking(db.Model): # type: ignore[name-defined]
+	__tablename__ = 'parking'
 
     id = db.Column(db.Integer, primary_key=True)
     address = db.Column(db.String(100), nullable=False)
@@ -33,30 +33,29 @@ class Parking(db.Model):
     )
 
 
-class ClientParking(db.Model):
-    __tablename__ = 'client_parking'
+class ClientParking(db.Model): # type: ignore[name-defined]
+	__tablename__ = 'client_parking'
 
-    id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.Integer, ForeignKey('client.id'))
-    parking_id = db.Column(db.Integer, ForeignKey('parking.id'))
-    time_in = db.Column(db.DateTime)
-    time_out = db.Column(db.DateTime)
+	id = db.Column(db.Integer, primary_key=True)
+	client_id = db.Column(db.Integer, ForeignKey('client.id'))
+	parking_id = db.Column(db.Integer, ForeignKey('parking.id'))
+	time_in = db.Column(db.DateTime)
+	time_out = db.Column(db.DateTime)
 
-    client = db.relationship('Client', backref='parkings')
-    parking = db.relationship('Parking', backref='clients')
+	client = db.relationship('Client', backref='parkings')
+	parking = db.relationship('Parking', backref='clients')
 
-    __table_args__ = (
-        db.UniqueConstraint('client_id', 'parking_id',
-                            name='unique_client_parking'),
-    )
+	__table_args__ = (
+		db.UniqueConstraint('client_id', 'parking_id',
+		                    name='unique_client_parking'),
+	)
 
-    def to_json(self):
-        return {
-            'id': self.id,
-            'client_id': self.client_id,
-            'parking_id': self.parking_id,
-            'time_in': self.time_in.strftime('%Y-%m-%d %H:%M:%S'),
-            'time_out': self.time_out.strftime('%Y-%m-%d %H:%M:%S') if self.time_out else None,
-            'parking_address': self.parking.address if self.parking else None
-        }
-
+	def to_json(self):
+		return {
+			'id': self.id,
+			'client_id': self.client_id,
+			'parking_id': self.parking_id,
+			'time_in': self.time_in.strftime('%Y-%m-%d %H:%M:%S'),
+			'time_out': self.time_out.strftime('%Y-%m-%d %H:%M:%S') if self.time_out else None,
+			'parking_address': self.parking.address if self.parking else None
+		}
