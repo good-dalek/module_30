@@ -25,7 +25,7 @@ jobs:
       - name: Unittest
         run: pytest tests/
       - name: MyPy
-        run: mypy main/ --python-version 3.12 --ignore-missing-imports
+        run: mypy main/ --config-file pyproject.toml
       - name: Black
         run: black --diff --check src/
       - name: Isort
