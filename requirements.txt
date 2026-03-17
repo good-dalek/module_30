@@ -1,7 +1,7 @@
 black==22.3.0
 flake8==6.1.0
-flake8-bugbear==22.1.11
-flake8-pie==0.15.0
+flake8-bugbear==23.12.2
+flake8-pie==0.16.0
 isort==5.9.3
 mypy==1.19.1
 pytest==7.0.1
