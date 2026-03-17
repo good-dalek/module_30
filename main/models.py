@@ -1,6 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
-from .app import db
 from sqlalchemy import ForeignKey
+
+from .app import db
 
 
 class Client(db.Model):  # type: ignore[name-defined]
