@@ -25,10 +25,10 @@ jobs:
       - name: Unittest
         run: pytest tests/
       - name: MyPy
-        run: mypy src/
+        run: mypy main/
       - name: Black
         run: black --diff --check src/
       - name: Isort
         run: isort --check-only src/
       - name: Flake8
-        run: flake8 src/
+        run: flake8 main/
