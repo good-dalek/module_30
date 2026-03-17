@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey
 
 
 class Client(db.Model):
-    __tablename__ = 'client'
+    __tablename__ = "client"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -13,7 +13,7 @@ class Client(db.Model):
     car_number = db.Column(db.String(10))
 
     def __repr__(self):
-        return f'Клиент {self.name} {self.surname}'
+        return f"Клиент {self.name} {self.surname}"
 
     def to_json(self):
         return {c.name: getattr(self, c.name)
@@ -21,7 +21,7 @@ class Client(db.Model):
 
 
 class Parking(db.Model):
-    __tablename__ = 'parking'
+    __tablename__ = "parking"
 
     id = db.Column(db.Integer, primary_key=True)
     address = db.Column(db.String(100), nullable=False)
@@ -35,7 +35,7 @@ class Parking(db.Model):
 
 
 class ClientParking(db.Model):
-    __tablename__ = 'client_parking'
+    __tablename__ = "client_parking"
 
     id = db.Column(db.Integer, primary_key=True)
     client_id = db.Column(db.Integer, ForeignKey('client.id'))
