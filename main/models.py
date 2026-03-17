@@ -16,8 +16,7 @@ class Client(db.Model):  # type: ignore[name-defined]
         return f"Клиент {self.name} {self.surname}"
 
     def to_json(self):
-        return {c.name: getattr(self, c.name)
-                for c in self.__table__.columns}
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 class Parking(db.Model):  # type: ignore[name-defined]
@@ -30,7 +29,7 @@ class Parking(db.Model):  # type: ignore[name-defined]
     count_available_places = db.Column(db.Integer, nullable=False)
 
     __table_args__ = (
-        db.CheckConstraint('opened IN (0, 1)', name='check_opened_boolean'),
+        db.CheckConstraint("opened IN (0, 1)", name="check_opened_boolean"),
     )
 
 
@@ -38,25 +37,26 @@ class ClientParking(db.Model):  # type: ignore[name-defined]
     __tablename__ = "client_parking"
 
     id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.Integer, ForeignKey('client.id'))
-    parking_id = db.Column(db.Integer, ForeignKey('parking.id'))
+    client_id = db.Column(db.Integer, ForeignKey("client.id"))
+    parking_id = db.Column(db.Integer, ForeignKey("parking.id"))
     time_in = db.Column(db.DateTime)
     time_out = db.Column(db.DateTime)
 
-    client = db.relationship('Client', backref='parkings')
-    parking = db.relationship('Parking', backref='clients')
+    client = db.relationship("Client", backref="parkings")
+    parking = db.relationship("Parking", backref="clients")
 
     __table_args__ = (
-        db.UniqueConstraint('client_id', 'parking_id',
-                            name='unique_client_parking'),
+        db.UniqueConstraint("client_id", "parking_id", name="unique_client_parking"),
     )
 
     def to_json(self):
         return {
-            'id': self.id,
-            'client_id': self.client_id,
-            'parking_id': self.parking_id,
-            'time_in': self.time_in.strftime('%Y-%m-%d %H:%M:%S'),
-            'time_out': self.time_out.strftime('%Y-%m-%d %H:%M:%S') if self.time_out else None,
-            'parking_address': self.parking.address if self.parking else None
+            "id": self.id,
+            "client_id": self.client_id,
+            "parking_id": self.parking_id,
+            "time_in": self.time_in.strftime("%Y-%m-%d %H:%M:%S"),
+            "time_out": (
+                self.time_out.strftime("%Y-%m-%d %H:%M:%S") if self.time_out else None
+            ),
+            "parking_address": self.parking.address if self.parking else None,
         }
