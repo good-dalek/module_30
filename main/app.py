@@ -82,8 +82,8 @@ def create_app():
         db.session.add(parking_record)
         db.session.commit()
 
-        return (f'Дата и время заезда на парковку: {parking_record.to_json()['time_in']}\n '
-                f'Парковка №: {parking_record.parking_id}'), 201
+        return (f"Дата и время заезда на парковку: {parking_record.to_json()['time_in']}\n "
+                f"Парковка №: {parking_record.parking_id}"), 201
 
     @app.route('/client_parkings', methods=['DELETE'])
     def leaving_the_parking():
@@ -109,6 +109,6 @@ def create_app():
         db.session.commit()
 
         time_out = db.session.query(ClientParking).filter(ClientParking.id == client_parking_id).scalar()
-        return f'Дата и время выезда с парковки: {time_out.to_json()['time_out']}', 200
+        return f"Дата и время выезда с парковки: {time_out.to_json()['time_out']}", 200
 
     return app
