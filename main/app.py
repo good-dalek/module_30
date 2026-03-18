@@ -106,9 +106,7 @@ def create_app():
         )
 
         if not credit_card:
-            return (
-                jsonify({"error": "Для оплаты парковки привяжите карту"}),
-                400)
+            return jsonify({"error": "Для оплаты парковки привяжите карту"}), 400
 
         (
             db.session.query(ClientParking)
@@ -125,7 +123,9 @@ def create_app():
             .filter(ClientParking.id == client_parking_id)
             .scalar()
         )
-        return (f"Дата и время выезда с парковки: "
-                f"{time_out.to_json()['time_out']}", 200)
+        return (
+            f"Дата и время выезда с парковки: "
+            f"{time_out.to_json()['time_out']}", 200,
+        )
 
     return app

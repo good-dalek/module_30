@@ -29,8 +29,7 @@ class Parking(db.Model):  # type: ignore[name-defined]
     count_available_places = db.Column(db.Integer, nullable=False)
 
     __table_args__ = (
-        db.CheckConstraint("opened IN (0, 1)",
-                           name="check_opened_boolean"),
+        db.CheckConstraint("opened IN (0, 1)", name="check_opened_boolean"),
     )
 
 
