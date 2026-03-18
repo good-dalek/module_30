@@ -1,0 +1,12 @@
+[flake8]
+max-line-length = 88                    # Black использует 88
+extend-ignore = E203, W503, E501        # Конфликты с Black
+exclude = 
+    .venv,
+    venv,
+    __pycache__,
+    .git,
+    migrations
+per-file-ignores =
+    __init__.py:F401
+    */migrations/*.py:F403
