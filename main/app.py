@@ -124,8 +124,8 @@ def create_app():
             .scalar()
         )
         return (
-            f"Дата и время выезда с парковки: "
-            f"{time_out.to_json()['time_out']}", 200,
+            f"Дата и время выезда с парковки: " f"{time_out.to_json()['time_out']}",
+            200,
         )
 
     return app
