@@ -29,7 +29,8 @@ class Parking(db.Model):  # type: ignore[name-defined]
     count_available_places = db.Column(db.Integer, nullable=False)
 
     __table_args__ = (
-        db.CheckConstraint("opened IN (0, 1)", name="check_opened_boolean"),
+        db.CheckConstraint("opened IN (0, 1)",
+                           name="check_opened_boolean"),
     )
 
 
@@ -46,7 +47,8 @@ class ClientParking(db.Model):  # type: ignore[name-defined]
     parking = db.relationship("Parking", backref="clients")
 
     __table_args__ = (
-        db.UniqueConstraint("client_id", "parking_id", name="unique_client_parking"),
+        db.UniqueConstraint("client_id", "parking_id",
+                            name="unique_client_parking"),
     )
 
     def to_json(self):
@@ -56,7 +58,9 @@ class ClientParking(db.Model):  # type: ignore[name-defined]
             "parking_id": self.parking_id,
             "time_in": self.time_in.strftime("%Y-%m-%d %H:%M:%S"),
             "time_out": (
-                self.time_out.strftime("%Y-%m-%d %H:%M:%S") if self.time_out else None
+                self.time_out.strftime("%Y-%m-%d %H:%M:%S")
+                if self.time_out
+                else None
             ),
             "parking_address": self.parking.address if self.parking else None,
         }
